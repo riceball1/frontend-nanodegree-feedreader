@@ -11,14 +11,14 @@ $(function() {
             // expect(allFeeds).toBeDefined();
             // expect(allFeeds.length).not.toBe(0);
             allFeeds.forEach(feed => {
-                expect(feed.url).not.toBeUndefined();
+                expect(feed.url).toBeDefined();
                 expect(feed.url.length).not.toBe(0);
             });
         });
 
         it('has a name defined', () => {
             allFeeds.forEach(feed => {
-                expect(feed.name).not.toBeUndefined();
+                expect(feed.name).toBeDefined();
                 expect(feed.name.length).not.toBe(0);
             });
         });
@@ -28,17 +28,18 @@ $(function() {
     describe('The menu', () => {
 
         it('is hidden', () => {
-            expect($('.menu-hidden')).toBeDefined();
+            expect($('body').hasClass('menu-hidden')).toBeDefined();
         });
 
 
         it('is changes visibility when the menu icon is clicked', () => {
-            // // trigger click before each test
             const menuIcon = $('.menu-icon-link');
+            // first trigger opens menu
             menuIcon.trigger('click');
-            expect($('body').attr('class')).not.toEqual('menu-hidden');
+            expect($('body').hasClass('menu-hidden')).toEqual(false);
+            // second trigger closes menu
             menuIcon.trigger('click');
-            expect($('body').attr('class')).toEqual('menu-hidden');
+            expect($('body').hasClass('menu-hidden')).toEqual(true);
         });
     });
 
@@ -52,7 +53,8 @@ $(function() {
         });
 
         it('has a single .entry element within the .feed container', (done) => {
-            const entryElement = $('.entry');
+            // selected only .entry decesendants of .feed container
+            const entryElement = $('.feed .entry');
             expect(entryElement.length).not.toBe(0);
             done();
         });
@@ -86,10 +88,8 @@ $(function() {
 
 
         afterEach((done) => {
-            // reset the first loadFeed
-            loadFeed(0, () => {
-                done();
-            });
+            // reset to the first loadFeed
+            loadFeed(0, done);
         });
 
     });
