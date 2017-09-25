@@ -58,9 +58,9 @@ $(function() {
          * hiding/showing of the menu element.
          */
 
-         it('is hidden', () => {
+        it('is hidden', () => {
             expect($('.menu-hidden')).toBeDefined();
-         });
+        });
 
         /* TODO: Write a test that ensures the menu changes
          * visibility when the menu icon is clicked. This test
@@ -68,14 +68,14 @@ $(function() {
          * clicked and does it hide when clicked again.
          */
 
-         it('is changes visibility when the menu icon is clicked', () => {
+        it('is changes visibility when the menu icon is clicked', () => {
             // // trigger click before each test
             const menuIcon = $('.menu-icon-link');
             menuIcon.trigger('click');
             expect($('body').attr('class')).not.toEqual('menu-hidden');
             menuIcon.trigger('click');
             expect($('body').attr('class')).toEqual('menu-hidden');
-         });
+        });
     });
 
     /* TODO: Write a new test suite named "Initial Entries" */
@@ -88,9 +88,9 @@ $(function() {
          */
         beforeEach((done) => {
             loadFeed(0, () => {
-              done();  
+                done();
             });
-            
+
         });
 
         it('has a single .entry element within the .feed container', (done) => {
@@ -107,12 +107,28 @@ $(function() {
          * Remember, loadFeed() is asynchronous.
          */
 
-         beforeEach((done) => {
-            loadFeed(0).done();
+         // declare global variables for this test
+        let firstFeed;
+        let secondFeed;
+
+        beforeEach((done) => {
+            // get first load feed information
+            loadFeed(0, () => {
+                firstFeed = $('.feed').html();
+                // start next feed
+                loadFeed(1, () => {
+                    // get second load feed information
+                    secondFeed = $('.feed').html();
+                    done();
+                });
+
+            });
+
         });
 
-        it('has loaded', () => {
-            console.log('this works loaded');
+        it('has loaded new content', (done) => {
+            expect(firstFeed).not.toBe(secondFeed);
+            done();
         });
     });
 }());
