@@ -130,5 +130,14 @@ $(function() {
             expect(firstFeed).not.toBe(secondFeed);
             done();
         });
+
+
+        afterEach((done) => {
+            // reset the first loadFeed
+            loadFeed(0, () => {
+                done();
+            })
+        })
+
     });
 }());
