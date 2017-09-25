@@ -57,8 +57,9 @@ $(function() {
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
-         it('is hidden', () => {
 
+         it('is hidden', () => {
+            expect($('.menu-hidden')).toBeDefined();
          });
 
         /* TODO: Write a test that ensures the menu changes
@@ -67,8 +68,13 @@ $(function() {
          * clicked and does it hide when clicked again.
          */
 
-         it('is visible on click', () => {
-
+         it('is changes visibility when the menu icon is clicked', () => {
+            // // trigger click before each test
+            const menuIcon = $('.menu-icon-link');
+            menuIcon.trigger('click');
+            expect($('body').attr('class')).not.toEqual('menu-hidden');
+            menuIcon.trigger('click');
+            expect($('body').attr('class')).toEqual('menu-hidden');
          });
     });
 
@@ -81,13 +87,16 @@ $(function() {
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
         beforeEach((done) => {
-            loadFeed(0).done();
+            loadFeed(0, () => {
+              done();  
+            });
+            
         });
 
-        it('has a single .entry element within the .feed container', () => {
-            const entryElement = document.querySelectorAll('.entry');
+        it('has a single .entry element within the .feed container', (done) => {
+            const entryElement = $('.entry');
             expect(entryElement.length).not.toBe(0);
-
+            done();
         });
     });
 
@@ -103,7 +112,7 @@ $(function() {
         });
 
         it('has loaded', () => {
-            
+            console.log('this works loaded');
         });
     });
 }());
