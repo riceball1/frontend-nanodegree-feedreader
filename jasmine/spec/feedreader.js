@@ -44,8 +44,8 @@ $(function() {
             allFeeds.forEach(feed => {
                 expect(feed.name).not.toBeUndefined();
                 expect(feed.name).not.toBeNull();
-            })
-        })
+            });
+        });
     });
 
 
