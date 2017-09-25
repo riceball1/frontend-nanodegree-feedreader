@@ -46,10 +46,7 @@ $(function() {
     describe('Initial Entries', () => {
 
         beforeEach((done) => {
-            loadFeed(0, () => {
-                done();
-            });
-
+            loadFeed(0, done);
         });
 
         it('has a single .entry element within the .feed container', (done) => {
