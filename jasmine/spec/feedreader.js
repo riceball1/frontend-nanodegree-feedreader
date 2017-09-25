@@ -136,8 +136,8 @@ $(function() {
             // reset the first loadFeed
             loadFeed(0, () => {
                 done();
-            })
-        })
+            });
+        });
 
     });
 }());
