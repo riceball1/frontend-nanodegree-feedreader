@@ -8,9 +8,8 @@ $(function() {
         });
 
         it('has URL defined', function() {
-            // expect(allFeeds).toBeDefined();
-            // expect(allFeeds.length).not.toBe(0);
             allFeeds.forEach(feed => {
+                // alternative: expect(feed.url).toBeTruthy();
                 expect(feed.url).toBeDefined();
                 expect(feed.url.length).not.toBe(0);
             });
@@ -28,26 +27,25 @@ $(function() {
     describe('The menu', () => {
 
         it('is hidden', () => {
-            expect($('body').hasClass('menu-hidden')).toBeDefined();
+            // evaluate boolean as true
+            expect($('body').hasClass('menu-hidden')).toBeTruthy();
         });
 
 
         it('is changes visibility when the menu icon is clicked', () => {
             const menuIcon = $('.menu-icon-link');
             // first trigger opens menu
-            menuIcon.trigger('click');
-            expect($('body').hasClass('menu-hidden')).toEqual(false);
+            menuIcon.click();
+            expect($('body').hasClass('menu-hidden')).toBe(false);
             // second trigger closes menu
             menuIcon.trigger('click');
-            expect($('body').hasClass('menu-hidden')).toEqual(true);
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
     });
 
     describe('Initial Entries', () => {
 
-        beforeEach((done) => {
-            loadFeed(0, done);
-        });
+        beforeEach(done => loadFeed(0, done));
 
         it('has a single .entry element within the .feed container', (done) => {
             // selected only .entry decesendants of .feed container
