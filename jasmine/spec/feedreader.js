@@ -28,7 +28,7 @@ $(function() {
 
         it('is hidden', () => {
             // evaluate boolean as true
-            expect($('body').hasClass('menu-hidden')).toBeTruthy();
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
 
